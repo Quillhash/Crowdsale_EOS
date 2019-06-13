@@ -1,0 +1,128 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT ",
+    "version": "eosio::abi/1.1",
+    "types": [],
+    "structs": [
+        {
+            "name": "checkgoal",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "deposit_t",
+            "base": "",
+            "fields": [
+                {
+                    "name": "account",
+                    "type": "name"
+                },
+                {
+                    "name": "eoses",
+                    "type": "asset"
+                },
+                {
+                    "name": "tokens",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "init",
+            "base": "",
+            "fields": [
+                {
+                    "name": "recipient",
+                    "type": "name"
+                },
+                {
+                    "name": "start",
+                    "type": "time_point_sec"
+                },
+                {
+                    "name": "finish",
+                    "type": "time_point_sec"
+                }
+            ]
+        },
+        {
+            "name": "pause",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "rate",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "transfer",
+            "base": "",
+            "fields": [
+                {
+                    "name": "from",
+                    "type": "name"
+                },
+                {
+                    "name": "to",
+                    "type": "name"
+                },
+                {
+                    "name": "quantity",
+                    "type": "asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "withdraw",
+            "base": "",
+            "fields": []
+        }
+    ],
+    "actions": [
+        {
+            "name": "checkgoal",
+            "type": "checkgoal",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "init",
+            "type": "init",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "pause",
+            "type": "pause",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "rate",
+            "type": "rate",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "transfer",
+            "type": "transfer",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdraw",
+            "type": "withdraw",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "deposit",
+            "type": "deposit_t",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "variants": []
+}

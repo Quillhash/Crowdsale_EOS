@@ -1,0 +1,30 @@
+
+{
+    "configurations": [
+        {
+            "includePath": [
+    "/usr/opt/eosio.cdt/1.5.0/include/eosiolib",
+    "/usr/opt/eosio.cdt/1.5.0/include",
+    "/usr/opt/eosio.cdt/1.5.0/include/libc",
+    "/usr/opt/eosio.cdt/1.5.0/include/libcxx",
+    "${workspaceFolder}"
+],
+            "libs": [],
+            "compilerOptions": [],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+    "/usr/opt/eosio.cdt/1.5.0/include/eosiolib",
+    "/usr/opt/eosio.cdt/1.5.0/include",
+    "/usr/opt/eosio.cdt/1.5.0/include/libc",
+    "/usr/opt/eosio.cdt/1.5.0/include/libcxx",
+    "${workspaceFolder}"
+],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
+}
