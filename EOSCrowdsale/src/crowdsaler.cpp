@@ -32,7 +32,7 @@ void crowdsaler::init(eosio::name recipient, eosio::time_point_sec start, eosio:
     this->state.recipient = recipient;
     this->state.start = start;
     this->state.finish = finish;
-    this->state.pause = UNPAUSE;
+    this->state.pause = false;
 }
 
 // update contract balances and send tokens to the investor
@@ -48,22 +48,22 @@ void crowdsaler::handle_investment(eosio::name investor, eosio::asset quantity)
     eosio::asset entire_eoses =  this->state.total_eoses;
     eosio::asset entire_tokens = eosio::asset(tokens_to_give, eosio::symbol("QUI", 4));
 
-    if (investor == eosio::name("crowdsaler"))
-    {
-        if (it == this->deposits.end())
-        {
-            this->deposits.emplace(this->_self, [investor, entire_eoses](auto &deposit) {
-            deposit.account = investor;
-            deposit.eoses = entire_eoses; });
-        }
-        else
-        {
-            this->deposits.modify(it, this->_self, [investor, entire_eoses](auto &deposit) {
-            deposit.account = investor;
-            deposit.eoses = entire_eoses;});
-        }
-    }
-    else
+    // if (investor == eosio::name("crowdsaler"))
+    // {
+    //     if (it == this->deposits.end())
+    //     {
+    //         this->deposits.emplace(this->_self, [investor, entire_eoses](auto &deposit) {
+    //         deposit.account = investor;
+    //         deposit.eoses = entire_eoses; });
+    //     }
+    //     else
+    //     {
+    //         this->deposits.modify(it, this->_self, [investor, entire_eoses](auto &deposit) {
+    //         deposit.account = investor;
+    //         deposit.eoses = entire_eoses;});
+    //     }
+    // }
+    // else
     {   
         if (it != this->deposits.end())
         {
@@ -95,7 +95,7 @@ void crowdsaler::handle_investment(eosio::name investor, eosio::asset quantity)
 void crowdsaler::transfer(eosio::name from, eosio::name to, eosio::asset quantity, std::string memo)
 {
 
-    eosio_assert(this->state.pause==UNPAUSE, "Crowdsale has been paused" );
+    eosio_assert(this->state.pause==false, "Crowdsale has been paused" );
     
     // check timings of the eos crowdsale
     eosio_assert(NOW >= this->state.start.utc_seconds, "Crowdsale hasn't started");
@@ -121,14 +121,14 @@ void crowdsaler::transfer(eosio::name from, eosio::name to, eosio::asset quantit
 }
 
 
-// unpause / pause contract
+// toggles unpause / pause contract
 void crowdsaler::pause()
 {
     require_auth(this->state.recipient);
-    if (state.pause==0)
-        this->state.pause = PAUSE; 
+    if (state.pause==false)
+        this->state.pause = true; 
     else
-        this->state.pause = UNPAUSE;
+        this->state.pause = false;
 }
 
 

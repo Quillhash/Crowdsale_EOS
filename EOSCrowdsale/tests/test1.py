@@ -196,8 +196,8 @@ def test():
         {
             "from": alice,
             "to": crowdsaler,
-            "quantity": "2500.0000 EOS",
-            "memo": "Invested 25 EOS in crowdsaler"
+            "quantity": "20.0000 EOS",
+            "memo": "Invested 20 EOS in crowdsaler"
         },
         permission=(alice, Permission.ACTIVE)
     )
@@ -208,8 +208,8 @@ def test():
         {
             "from": bob,
             "to": crowdsaler,
-            "quantity": "2500.0000 EOS",
-            "memo": "Invested 25 EOS in crowdsaler"
+            "quantity": "30.0000 EOS",
+            "memo": "Invested 30 EOS in crowdsaler"
         },
         permission=(bob, Permission.ACTIVE)
     )

@@ -45,7 +45,7 @@ CONTRACT crowdsaler : public eosio::contract
         eosio::asset total_tokens;
         eosio::time_point_sec start;
         eosio::time_point_sec finish;
-        uint64_t pause;
+        bool pause;
 
         // utility method for converting this object to string
         std::string toString()
@@ -65,7 +65,7 @@ CONTRACT crowdsaler : public eosio::contract
     TABLE deposit_t
     {
         eosio::name account;
-        eosio::asset eoses;
+     //   eosio::asset eoses;
         eosio::asset tokens;
         uint64_t primary_key() const { return account.value; }
     };
@@ -129,7 +129,7 @@ CONTRACT crowdsaler : public eosio::contract
         ret.total_eoses.amount = 0;
         ret.total_tokens.symbol = sy_qui;        
         ret.total_tokens.amount = 0;
-        ret.pause = 0;
+        ret.pause = false;
         ret.start = eosio::time_point_sec(0);
         ret.finish = eosio::time_point_sec(0);
         return ret;

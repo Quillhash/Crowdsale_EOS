@@ -17,10 +17,6 @@
                     "type": "name"
                 },
                 {
-                    "name": "eoses",
-                    "type": "asset"
-                },
-                {
                     "name": "tokens",
                     "type": "asset"
                 }
