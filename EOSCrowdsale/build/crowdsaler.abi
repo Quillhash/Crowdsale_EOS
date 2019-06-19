@@ -4,6 +4,28 @@
     "types": [],
     "structs": [
         {
+            "name": "buyzepta",
+            "base": "",
+            "fields": [
+                {
+                    "name": "from",
+                    "type": "name"
+                },
+                {
+                    "name": "to",
+                    "type": "name"
+                },
+                {
+                    "name": "quantity",
+                    "type": "asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
+        },
+        {
             "name": "checkgoal",
             "base": "",
             "fields": []
@@ -37,6 +59,28 @@
                 {
                     "name": "finish",
                     "type": "time_point_sec"
+                }
+            ]
+        },
+        {
+            "name": "issue",
+            "base": "",
+            "fields": [
+                {
+                    "name": "to",
+                    "type": "name"
+                },
+                {
+                    "name": "quantity",
+                    "type": "asset"
+                },
+                {
+                    "name": "_class",
+                    "type": "uint64"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
                 }
             ]
         },
@@ -80,6 +124,11 @@
     ],
     "actions": [
         {
+            "name": "buyzepta",
+            "type": "buyzepta",
+            "ricardian_contract": ""
+        },
+        {
             "name": "checkgoal",
             "type": "checkgoal",
             "ricardian_contract": ""
@@ -87,6 +136,11 @@
         {
             "name": "init",
             "type": "init",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "issue",
+            "type": "issue",
             "ricardian_contract": ""
         },
         {

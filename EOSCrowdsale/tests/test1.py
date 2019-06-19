@@ -25,6 +25,7 @@ def test():
     create_account("eosiotoken", eosio, account_name="quilltoken")
     create_account("bob", eosio, account_name="bob")
     create_account("issuer", eosio, account_name="issuer")
+    create_account("reserved", eosio, account_name="reserved")
 
 
     ########################################################################################################
@@ -67,14 +68,14 @@ def test():
     ########################################################################################################
     
     COMMENT('''
-    Create QUI tokens 
+    Create ZPT tokens 
     ''')
 
     token_contract.push_action(
         "create",
         {
             "issuer": crowdsaler,
-            "maximum_supply": "1000000000.0000 QUI"
+            "maximum_supply": "1000000000.0000 ZPT"
         },
         [eosiotoken]
     )
@@ -112,14 +113,14 @@ def test():
     ########################################################################################################
 
     COMMENT('''
-    Issue QUI tokens to crowdsaler 
+    Issue ZPT tokens to crowdsaler 
     ''')
 
     token_contract.push_action(
         "issue",
         {
             "to": crowdsaler,
-            "quantity": "20000.0000 QUI",
+            "quantity": "20000.0000 ZPT",
             "memo": "issued tokens to alice"
         },
         [crowdsaler]
@@ -156,6 +157,7 @@ def test():
          {},
         permission=(issuer, Permission.ACTIVE)
     )
+
 
     ########################################################################################################
 
@@ -214,27 +216,39 @@ def test():
         permission=(bob, Permission.ACTIVE)
     )
 
-
     ########################################################################################################
 
+
     COMMENT('''
-    Check table of the crowdsaler contract 
+    issue ZPT to reserved 
     ''')
+    crowdsaler.push_action(
+        "issue",
+        {
+            "to": reserved,
+            "quantity": "30.0000 ZPT",
+            "_class": "1",
+            "memo": "sending 30 ZPT reserved"
+        },
+        permission=(issuer, Permission.ACTIVE)
+    )
 
-    crowdsaler.table("deposit", crowdsaler)
 
+
+    ########################################################################################################
 
 
     COMMENT('''
     Check tables of the quilltoken contract 
     ''')
 
-    eosiotoken.table("stat", "QUI")
+    eosiotoken.table("stat", "ZPT")
     eosiotoken.table("stat", "EOS")
 
     eosiotoken.table("accounts", alice)
     eosiotoken.table("accounts", bob)
     eosiotoken.table("accounts", crowdsaler)
+    eosiotoken.table("accounts", reserved)
 
     ########################################################################################################
 
@@ -255,6 +269,7 @@ def test():
 
     crowdsaler.table("deposit", crowdsaler)
     eosiotoken.table("accounts", crowdsaler)
+    eosiotoken.table("accounts", issuer)
 
     stop()
 

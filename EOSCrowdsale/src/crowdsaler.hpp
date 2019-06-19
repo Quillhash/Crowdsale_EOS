@@ -12,7 +12,8 @@
 #include <eosiolib/asset.hpp>
 
 const eosio::symbol sy_eos = eosio::symbol("EOS", 4);
-const eosio::symbol sy_qui = eosio::symbol("QUI", 4);
+const eosio::symbol sy_zpt = eosio::symbol("ZPT", 4);
+const eosio::asset zero_zpt = eosio::asset( 0, eosio::symbol("ZPT", 4 )); 
 
 CONTRACT crowdsaler : public eosio::contract
 {
@@ -24,8 +25,14 @@ CONTRACT crowdsaler : public eosio::contract
     ~crowdsaler();
 
     ACTION init(eosio::name recipient, eosio::time_point_sec start, eosio::time_point_sec finish); // initialize the crowdsale
+    
+    ACTION issue(eosio::name to, eosio::asset quantity, uint64_t _class, std::string memo);
 
+    // for trade
     ACTION transfer(eosio::name from, eosio::name to, eosio::asset quantity, std::string memo); // redirect to handle_investment
+
+    // to crowdsaler
+    ACTION buyzepta(eosio::name from, eosio::name to, eosio::asset quantity, std::string memo); // redirect to handle_investment
 
     ACTION withdraw(); // transfer tokens from the contract account to the recipient
 
@@ -61,6 +68,30 @@ CONTRACT crowdsaler : public eosio::contract
         }
     };
 
+    // type for issuing the reserved tokens
+    struct reserved_t
+    {
+        eosio::asset class1;
+        eosio::asset class2;
+        eosio::asset class3;
+        eosio::asset class4;
+        eosio::asset class5;
+        eosio::asset class6;
+
+        // utility method for converting this object to string
+        std::string toString()
+        {
+            std::string str = " Investors/Core-Team "  + std::to_string(this->class1.amount)  +
+                              " Advisors " +  std::to_string(this->class2.amount)  +
+                              " Zeptagram Reserve " + std::to_string(this->class3.amount) +
+                              " AirDrop " +  std::to_string(this->class4.amount)  +
+                              " Exchanges " + std::to_string(this->class5.amount) +
+                              " Development/Promotional " + std::to_string(this->class6.amount);
+
+            return str;
+        }
+    };
+
     // table for holding investors information
     TABLE deposit_t
     {
@@ -73,14 +104,20 @@ CONTRACT crowdsaler : public eosio::contract
     // persists the state of the aplication in a singleton. Only one instance will be strored in the RAM for this application
     eosio::singleton<"state"_n, state_t> state_singleton;
 
+    // persists the state of reserved tokens 
+    eosio::singleton<"reserved"_n, reserved_t> reserved_singleton;
+
     // store investors and balances with contributions in the RAM
     eosio::multi_index<"deposit"_n, deposit_t> deposits;
 
     // hold present state of the application
     state_t state;
 
+    // holds reserved tokens state for all classes
+    reserved_t reserved;
+
     // handle investments on token transfers
-    void handle_investment(eosio::name investor, eosio::asset quantity);
+    void handle_investment(eosio::name investor, uint64_t tokens_to_give);
 
     // private function to call issue action from inside the contract
     void inline_issue(eosio::name to, eosio::asset quantity, std::string memo) const
@@ -127,11 +164,24 @@ CONTRACT crowdsaler : public eosio::contract
         state_t ret;
         ret.total_eoses.symbol = sy_eos;
         ret.total_eoses.amount = 0;
-        ret.total_tokens.symbol = sy_qui;        
+        ret.total_tokens.symbol = sy_zpt;        
         ret.total_tokens.amount = 0;
         ret.pause = false;
         ret.start = eosio::time_point_sec(0);
         ret.finish = eosio::time_point_sec(0);
         return ret;
+    }
+
+    // a utility function to return default parameters for the state of the crowdsale
+    reserved_t default_parameters1() const
+    {
+        reserved_t res;
+        res.class1 = zero_zpt;
+        res.class2 = zero_zpt;
+        res.class3 = zero_zpt;
+        res.class4 = zero_zpt;
+        res.class5 = zero_zpt;
+        res.class6 = zero_zpt;
+        return res;
     }
 };
