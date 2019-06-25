@@ -1,25 +1,25 @@
 #pragma once
+#include <eosio/eosio.hpp>
+#include <eosio/name.hpp>
+#include <eosio/singleton.hpp>
+#include <eosio/time.hpp>
+#include <eosio/system.hpp>
 
-#include <string>
-#include <vector>
+#include <eosio/datastream.hpp>
+#include <eosio/asset.hpp>
 
-#include <eosiolib/eosio.hpp>
-#include <eosiolib/name.hpp>
-#include <eosiolib/singleton.hpp>
-#include <eosiolib/system.h>
-#include <eosiolib/time.hpp>
-#include <eosiolib/datastream.hpp>
-#include <eosiolib/asset.hpp>
+const eosio::symbol sy_sys = eosio::symbol("SYS", 4);
+const eosio::symbol sy_qui = eosio::symbol("QUI", 4);
+const eosio::asset zero_qui = eosio::asset( 0, eosio::symbol("QUI", 4 )); 
 
-const eosio::symbol sy_eos = eosio::symbol("EOS", 4);
-const eosio::symbol sy_zpt = eosio::symbol("ZPT", 4);
-const eosio::asset zero_zpt = eosio::asset( 0, eosio::symbol("ZPT", 4 )); 
+
+using namespace eosio;
 
 CONTRACT crowdsaler : public eosio::contract
 {
   public:
     // constructor
-    crowdsaler(eosio::name self, eosio::name code, eosio::datastream<const char *> ds);
+    crowdsaler(name self, name code, datastream<const char *> ds);
 
     // destructor
     ~crowdsaler();
@@ -162,9 +162,9 @@ CONTRACT crowdsaler : public eosio::contract
     state_t default_parameters() const
     {
         state_t ret;
-        ret.total_eoses.symbol = sy_eos;
+        ret.total_eoses.symbol = sy_sys;
         ret.total_eoses.amount = 0;
-        ret.total_tokens.symbol = sy_zpt;        
+        ret.total_tokens.symbol = sy_qui;        
         ret.total_tokens.amount = 0;
         ret.pause = false;
         ret.start = eosio::time_point_sec(0);
@@ -176,12 +176,12 @@ CONTRACT crowdsaler : public eosio::contract
     reserved_t default_parameters1() const
     {
         reserved_t res;
-        res.class1 = zero_zpt;
-        res.class2 = zero_zpt;
-        res.class3 = zero_zpt;
-        res.class4 = zero_zpt;
-        res.class5 = zero_zpt;
-        res.class6 = zero_zpt;
+        res.class1 = zero_qui;
+        res.class2 = zero_qui;
+        res.class3 = zero_qui;
+        res.class4 = zero_qui;
+        res.class5 = zero_qui;
+        res.class6 = zero_qui;
         return res;
     }
 };

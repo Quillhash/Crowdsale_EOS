@@ -53,14 +53,14 @@ def test():
     ########################################################################################################
     
     COMMENT('''
-    Create EOS tokens 
+    Create SYS tokens 
     ''')
 
     token_contract.push_action(
         "create",
         {
             "issuer": eosio,
-            "maximum_supply": "1000000000.0000 EOS"
+            "maximum_supply": "1000000000.0000 SYS"
         },
         [eosiotoken]
     )
@@ -68,14 +68,14 @@ def test():
     ########################################################################################################
     
     COMMENT('''
-    Create ZPT tokens 
+    Create QUI tokens 
     ''')
 
     token_contract.push_action(
         "create",
         {
             "issuer": crowdsaler,
-            "maximum_supply": "1000000000.0000 ZPT"
+            "maximum_supply": "1000000000.0000 QUI"
         },
         [eosiotoken]
     )
@@ -83,28 +83,28 @@ def test():
     ########################################################################################################
 
     COMMENT('''
-    Issue EOS tokens to alice 
+    Issue SYS tokens to alice 
     ''')
 
     token_contract.push_action(
         "issue",
         {
             "to": alice,
-            "quantity": "10000.0000 EOS",
+            "quantity": "10000.0000 SYS",
             "memo": "issued tokens to alice"
         },
         [eosio]
     )
 
     COMMENT('''
-    Issue EOS tokens to bob 
+    Issue SYS tokens to bob 
     ''')
 
     token_contract.push_action(
         "issue",
         {
             "to": bob,
-            "quantity": "10000.0000 EOS",
+            "quantity": "10000.0000 SYS",
             "memo": "issued tokens to bob"
         },
         [eosio]
@@ -113,14 +113,14 @@ def test():
     ########################################################################################################
 
     COMMENT('''
-    Issue ZPT tokens to crowdsaler 
+    Issue QUI tokens to crowdsaler 
     ''')
 
     token_contract.push_action(
         "issue",
         {
             "to": crowdsaler,
-            "quantity": "20000.0000 ZPT",
+            "quantity": "20000.0000 QUI",
             "memo": "issued tokens to alice"
         },
         [crowdsaler]
@@ -192,26 +192,26 @@ def test():
         (crowdsaler, Permission.OWNER)
     )
 
-    # transfer EOS tokens from alice to the host (contract) accounts
+    # transfer SYS tokens from alice to the host (contract) accounts
     eosiotoken.push_action(
         "transfer",
         {
             "from": alice,
             "to": crowdsaler,
-            "quantity": "20.0000 EOS",
-            "memo": "Invested 20 EOS in crowdsaler"
+            "quantity": "20.0000 SYS",
+            "memo": "Invested 20 SYS in crowdsaler"
         },
         permission=(alice, Permission.ACTIVE)
     )
 
-    # transfer EOS tokens from bob to the host (contract) accounts
+    # transfer SYS tokens from bob to the host (contract) accounts
     eosiotoken.push_action(
         "transfer",
         {
             "from": bob,
             "to": crowdsaler,
-            "quantity": "30.0000 EOS",
-            "memo": "Invested 30 EOS in crowdsaler"
+            "quantity": "30.0000 SYS",
+            "memo": "Invested 30 SYS in crowdsaler"
         },
         permission=(bob, Permission.ACTIVE)
     )
@@ -220,15 +220,15 @@ def test():
 
 
     COMMENT('''
-    issue ZPT to reserved 
+    issue QUI to reserved 
     ''')
     crowdsaler.push_action(
         "issue",
         {
             "to": reserved,
-            "quantity": "30.0000 ZPT",
+            "quantity": "30.0000 QUI",
             "_class": "1",
-            "memo": "sending 30 ZPT reserved"
+            "memo": "sending 30 QUI reserved"
         },
         permission=(issuer, Permission.ACTIVE)
     )
@@ -242,8 +242,8 @@ def test():
     Check tables of the quilltoken contract 
     ''')
 
-    eosiotoken.table("stat", "ZPT")
-    eosiotoken.table("stat", "EOS")
+    eosiotoken.table("stat", "QUI")
+    eosiotoken.table("stat", "SYS")
 
     eosiotoken.table("accounts", alice)
     eosiotoken.table("accounts", bob)
@@ -252,14 +252,14 @@ def test():
 
     ########################################################################################################
 
-    COMMENT('''
-    withdraw EOS from the crowdsaler contract 
-    ''')
-    crowdsaler.push_action(
-        "withdraw",
-         {},
-        permission=(issuer, Permission.ACTIVE)
-    )
+    # COMMENT('''
+    # withdraw SYS from the crowdsaler contract 
+    # ''')
+    # crowdsaler.push_action(
+    #     "withdraw",
+    #      {},
+    #     permission=(issuer, Permission.ACTIVE)
+    # )
 
     ########################################################################################################
 
@@ -269,7 +269,6 @@ def test():
 
     crowdsaler.table("deposit", crowdsaler)
     eosiotoken.table("accounts", crowdsaler)
-    eosiotoken.table("accounts", issuer)
 
     stop()
 

@@ -10,6 +10,7 @@
 #define TOTAL_SUPPLY 3500000000000
 // define the rate applicable for 1 ZPT coin
 #define RATE 2
+#define RATE2 4
 
 
 // Class1: Investors/Core-Team – 15% (52,500,000)
