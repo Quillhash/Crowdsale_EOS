@@ -13,14 +13,14 @@ Basic Crowdsale smart contract in EOS. We will be issuing ```QUI``` token in exc
 To initialize the crowdsale with name of recipient (account which will manage the crowdsale, pause the campaign or withdraw the EOS collected ):
 
 
-```ACTION buyzepta(eosio::name from, eosio::name to, eosio::asset quantity, std::string memo);```  
+```ACTION buyquill(eosio::name from, eosio::name to, eosio::asset quantity, std::string memo);```  
 
 To transfer the tokens from account ```from``` to the account ```to```. It is redirected to “handle_investment” method where token transfer is managed & multi index table and states are managed. Fees can be charged in here. The deposits table in the smart contract is also updated.
 
 
 ```ACTION transfer(eosio::name from, eosio::name to, eosio::asset quantity, std::string memo);```  
 
-To transfer the tokens from account ```from``` to the account ```to```. The quilltoken contract holding all the ```QUI``` balances gets updated.
+To transfer the ```QUI``` tokens from account ```from``` to the account ```to```. The quilltoken contract holding all the ```QUI``` balances gets updated.
 
 ```ACTION withdraw()```
 
@@ -44,3 +44,5 @@ To check if goal is reached or not.
 
 ##### TABLE deposits
 It holds all the account holders and their `QUI` they received for contributing for the crowdsale. 
+
+##### Note: To buy QUI tokens, you need to call the transfer action of quilltoken and send the SYS to the crowdsaler account.
