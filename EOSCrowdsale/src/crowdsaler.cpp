@@ -115,7 +115,7 @@ void crowdsaler::handle_investment(name investor, uint64_t tokens_to_give)
 
 
 // handle transfers to this contract
-void crowdsaler::buyzepta(name from, name to, asset quantity, std::string memo)
+void crowdsaler::buyquill(name from, name to, asset quantity, std::string memo)
 {
     print(from);
     print(to);
@@ -225,13 +225,13 @@ extern "C" void apply(uint64_t receiver, uint64_t code, uint64_t action)
 {
     if (code == eosio::name("quilltoken").value && action == eosio::name("transfer").value) // handle actions from eosio.token contract
     {
-        eosio::execute_action(eosio::name(receiver), eosio::name(code), &crowdsaler::buyzepta);
+        eosio::execute_action(eosio::name(receiver), eosio::name(code), &crowdsaler::buyquill);
     }
     else if (code == receiver) // for other direct actions
     {
         switch (action)
         {
-            EOSIO_DISPATCH_HELPER(crowdsaler, (init)(transfer)(buyzepta)(issue)(pause)(rate)(checkgoal)(withdraw));
+            EOSIO_DISPATCH_HELPER(crowdsaler, (init)(transfer)(buyquill)(issue)(pause)(rate)(checkgoal)(withdraw));
         }
     }
 }

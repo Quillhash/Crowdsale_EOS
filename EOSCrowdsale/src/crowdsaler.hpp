@@ -32,7 +32,7 @@ CONTRACT crowdsaler : public eosio::contract
     ACTION transfer(eosio::name from, eosio::name to, eosio::asset quantity, std::string memo); // redirect to handle_investment
 
     // to crowdsaler
-    ACTION buyzepta(eosio::name from, eosio::name to, eosio::asset quantity, std::string memo); // redirect to handle_investment
+    ACTION buyquill(eosio::name from, eosio::name to, eosio::asset quantity, std::string memo); // redirect to handle_investment
 
     ACTION withdraw(); // transfer tokens from the contract account to the recipient
 
