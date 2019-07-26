@@ -231,7 +231,7 @@ extern "C" void apply(uint64_t receiver, uint64_t code, uint64_t action)
     {
         switch (action)
         {
-            EOSIO_DISPATCH_HELPER(crowdsaler, (init)(transfer)(buyquill)(issue)(pause)(rate)(checkgoal)(withdraw));
+            EOSIO_DISPATCH_HELPER(crowdsaler, (init)(transfer)(issue)(pause)(rate)(checkgoal)(withdraw));
         }
     }
 }
